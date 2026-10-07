@@ -14,8 +14,30 @@
 
     <h2>Mes tâches</h2>
 
-    <input type="text" placeholder="Ajouter une tâche...">
-    <button>Ajouter</button>
+    <input id="nouvelle-tache" type="text" placeholder="Ajouter une tâche...">
+<button id="bouton-ajouter">Ajouter</button>
 
+<ul id="liste-taches"></ul>
+    
+<script>
+    const champTache = document.getElementById("nouvelle-tache");
+    const boutonAjouter = document.getElementById("bouton-ajouter");
+    const listeTaches = document.getElementById("liste-taches");
+
+    boutonAjouter.addEventListener("click", function() {
+
+        const texteTache = champTache.value;
+
+        if (texteTache !== "") {
+            const nouvelleTache = document.createElement("li");
+            nouvelleTache.textContent = texteTache;
+
+            listeTaches.appendChild(nouvelleTache);
+
+            champTache.value = "";
+        }
+
+    });
+</script>
 </body>
 </html>
