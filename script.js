@@ -78,3 +78,33 @@
     boutonAjouter.addEventListener("click", ajouterTache);
 
     afficherTaches();
+
+// NAVIGATION ENTRE LES SECTIONS
+
+const ongletTaches = document.getElementById("onglet-taches");
+const ongletCourses = document.getElementById("onglet-courses");
+
+const sectionTaches = document.getElementById("section-taches");
+const sectionCourses = document.getElementById("section-courses");
+
+function afficherSection(section) {
+
+    const afficherTaches = section === "taches";
+
+    sectionTaches.hidden = !afficherTaches;
+    sectionCourses.hidden = afficherTaches;
+
+    ongletTaches.classList.toggle("actif", afficherTaches);
+    ongletCourses.classList.toggle("actif", !afficherTaches);
+
+    ongletTaches.setAttribute("aria-pressed", afficherTaches);
+    ongletCourses.setAttribute("aria-pressed", !afficherTaches);
+}
+
+ongletTaches.addEventListener("click", function() {
+    afficherSection("taches");
+});
+
+ongletCourses.addEventListener("click", function() {
+    afficherSection("courses");
+});
