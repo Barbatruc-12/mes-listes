@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,19 +9,57 @@
 </head>
 
 <body>
+    <main class="application">
 
-    <h1>Mes Listes</h1>
+        <header class="entete">
+            <div class="logo">✓</div>
+            <div>
+                <h1>Mes Listes</h1>
+                <p>Mon organisation au quotidien</p>
+            </div>
+        </header>
 
-    <p>Ma première application ! 🎉</p>
+        <nav class="navigation" aria-label="Navigation principale">
+            <button id="onglet-taches"
+                    class="onglet actif"
+                    type="button"
+                    aria-pressed="true">
+                ☑ Tâches
+            </button>
 
-    <h2>Mes tâches</h2>
+            <button id="onglet-courses"
+                    class="onglet"
+                    type="button"
+                    aria-pressed="false">
+                🛒 Courses
+            </button>
+        </nav>
 
-    <input id="nouvelle-tache" type="text" placeholder="Ajouter une tâche...">
-<button id="bouton-ajouter">Ajouter</button>
+        <section id="section-taches">
+            <h2>Mes tâches</h2>
 
-<ul id="liste-taches"></ul>
+            <div class="ajout-tache">
+                <input id="nouvelle-tache"
+                       type="text"
+                       placeholder="Nouvelle tâche...">
 
-<script src="script.js"></script>
+                <button id="bouton-ajouter"
+                        type="button"
+                        aria-label="Ajouter une tâche">
+                    +
+                </button>
+            </div>
 
+            <ul id="liste-taches"></ul>
+        </section>
+
+        <section id="section-courses" hidden>
+            <h2>Mes courses</h2>
+            <p>Notre prochaine fonctionnalité arrive bientôt ! 🛒</p>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
