@@ -218,3 +218,97 @@ section > p {
     background: #3159ad;
     transform: scale(0.97);
 }
+
+
+/* ========================================
+   MES LISTES — V0.5
+   Listes thématiques
+======================================== */
+
+.creation-liste {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+#nom-nouvelle-liste {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: white;
+    font-size: 16px;
+    outline-color: #416fd1;
+}
+
+#bouton-creer-liste {
+    width: 55px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 12px;
+    background: #416fd1;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#conteneur-listes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.carte-liste {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(30, 50, 80, 0.04);
+}
+
+.ouvrir-liste {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: #20304b;
+    font-size: 16px;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.supprimer-liste {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 10px;
+    background: #fff0f0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#retour-listes {
+    margin-bottom: 22px;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #e2eaf8;
+    color: #3159ad;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#detail-liste {
+    padding: 4px 0;
+}
+
+#detail-liste h2 {
+    margin-bottom: 12px;
+}
+
