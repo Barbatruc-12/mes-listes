@@ -75,14 +75,45 @@
 
     <div id="conteneur-listes"></div>
 
-    <div id="detail-liste" hidden>
-        <button id="retour-listes" type="button">
-            ← Retour aux listes
-        </button>
 
+<div id="detail-liste" hidden>
+
+    <button id="retour-listes" type="button">
+        ← Retour aux listes
+    </button>
+
+    <div class="entete-liste">
         <h2 id="titre-liste"></h2>
-        <p>Cette liste est vide pour le moment.</p>
+
+        <button id="vider-liste"
+                type="button"
+                title="Vider la liste"
+                aria-label="Vider la liste">
+            🗑
+        </button>
     </div>
+
+    <div class="ajout-article">
+        <input id="nouvel-article"
+               type="text"
+               placeholder="Ajouter un article..."
+               maxlength="100">
+
+        <button id="bouton-ajouter-article"
+                type="button"
+                aria-label="Ajouter un article">
+            +
+        </button>
+    </div>
+
+    <p id="message-liste-vide">
+        Aucun article pour le moment.
+    </p>
+
+    <ul id="liste-articles"></ul>
+
+</div>
+
 
 </section>
 
