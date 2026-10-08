@@ -53,10 +53,39 @@
             <ul id="liste-taches"></ul>
         </section>
 
-        <section id="section-courses" hidden>
-            <h2>Mes courses</h2>
-            <p>Notre prochaine fonctionnalité arrive bientôt ! 🛒</p>
-        </section>
+       
+<section id="section-courses" hidden>
+
+    <h2>Mes listes</h2>
+
+    <div class="creation-liste">
+        <input
+            id="nom-nouvelle-liste"
+            type="text"
+            placeholder="Nom de la nouvelle liste..."
+            maxlength="60"
+        >
+
+        <button id="bouton-creer-liste"
+                type="button"
+                aria-label="Créer une liste">
+            +
+        </button>
+    </div>
+
+    <div id="conteneur-listes"></div>
+
+    <div id="detail-liste" hidden>
+        <button id="retour-listes" type="button">
+            ← Retour aux listes
+        </button>
+
+        <h2 id="titre-liste"></h2>
+        <p>Cette liste est vide pour le moment.</p>
+    </div>
+
+</section>
+
 
     </main>
 
