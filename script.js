@@ -122,3 +122,137 @@ champTache.addEventListener("keydown", function(event) {
         ajouterTache();
     }
 });
+
+
+// ========================================
+// MES LISTES — Gestion des listes thématiques
+// ========================================
+
+const champNomListe = document.getElementById("nom-nouvelle-liste");
+const boutonCreerListe = document.getElementById("bouton-creer-liste");
+const conteneurListes = document.getElementById("conteneur-listes");
+const detailListe = document.getElementById("detail-liste");
+const titreListe = document.getElementById("titre-liste");
+const boutonRetour = document.getElementById("retour-listes");
+
+// Données indépendantes des tâches
+let listesCourses = JSON.parse(
+    localStorage.getItem("listesCourses")
+) || [];
+
+function sauvegarderListes() {
+    localStorage.setItem(
+        "listesCourses",
+        JSON.stringify(listesCourses)
+    );
+}
+
+function afficherListes() {
+    conteneurListes.innerHTML = "";
+
+    listesCourses.forEach(function(liste) {
+
+        const carte = document.createElement("div");
+        carte.className = "carte-liste";
+
+        const boutonOuvrir = document.createElement("button");
+        boutonOuvrir.className = "ouvrir-liste";
+        boutonOuvrir.type = "button";
+        boutonOuvrir.textContent = "🛒 " + liste.nom;
+
+        boutonOuvrir.addEventListener("click", function() {
+            ouvrirListe(liste.id);
+        });
+
+        const boutonSupprimer = document.createElement("button");
+        boutonSupprimer.className = "supprimer-liste";
+        boutonSupprimer.type = "button";
+        boutonSupprimer.textContent = "🗑";
+        boutonSupprimer.setAttribute(
+            "aria-label",
+            "Supprimer " + liste.nom
+        );
+
+        boutonSupprimer.addEventListener("click", function() {
+            supprimerListe(liste.id);
+        });
+
+        carte.appendChild(boutonOuvrir);
+        carte.appendChild(boutonSupprimer);
+        conteneurListes.appendChild(carte);
+    });
+}
+
+function creerListe() {
+    const nom = champNomListe.value.trim();
+
+    if (nom === "") {
+        return;
+    }
+
+    const nouvelleListe = {
+        id: crypto.randomUUID(),
+        nom: nom,
+        articles: []
+    };
+
+    listesCourses.push(nouvelleListe);
+    sauvegarderListes();
+    afficherListes();
+
+    champNomListe.value = "";
+}
+
+function supprimerListe(id) {
+    const liste = listesCourses.find(function(element) {
+        return element.id === id;
+    });
+
+    if (!liste) return;
+
+    const confirmation = confirm(
+        "Supprimer définitivement la liste « " +
+        liste.nom + " » ?"
+    );
+
+    if (!confirmation) return;
+
+    listesCourses = listesCourses.filter(function(element) {
+        return element.id !== id;
+    });
+
+    sauvegarderListes();
+    afficherListes();
+}
+
+function ouvrirListe(id) {
+    const liste = listesCourses.find(function(element) {
+        return element.id === id;
+    });
+
+    if (!liste) return;
+
+    titreListe.textContent = liste.nom;
+
+    document.querySelector(".creation-liste").hidden = true;
+    conteneurListes.hidden = true;
+    detailListe.hidden = false;
+}
+
+function retournerAuxListes() {
+    document.querySelector(".creation-liste").hidden = false;
+    conteneurListes.hidden = false;
+    detailListe.hidden = true;
+}
+
+boutonCreerListe.addEventListener("click", creerListe);
+
+champNomListe.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        creerListe();
+    }
+});
+
+boutonRetour.addEventListener("click", retournerAuxListes);
+
+afficherListes();
