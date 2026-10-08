@@ -1,2 +1,132 @@
-/* Feuille de style de Mes Listes */
-/* Notre design arrivera ici ! */
+
+/* MES LISTES — Version 0.2 */
+
+/* Réglages généraux */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 16px;
+    min-height: 100vh;
+    background: #edf3f8;
+    color: #20304b;
+    font-family: Arial, sans-serif;
+}
+
+/* Carte principale */
+body {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Titres */
+h1 {
+    margin: 10px 0;
+    font-size: 34px;
+    color: #20304b;
+}
+
+h1::before {
+    content: "✓";
+    display: inline-block;
+    margin-right: 12px;
+    color: #416fd1;
+}
+
+h2 {
+    margin-top: 35px;
+    font-size: 23px;
+}
+
+/* Texte d'introduction */
+p {
+    color: #718096;
+    line-height: 1.5;
+}
+
+/* Champ de saisie */
+#nouvelle-tache {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: white;
+    font-size: 16px;
+    outline-color: #416fd1;
+}
+
+/* Bouton Ajouter */
+#bouton-ajouter {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #416fd1;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Liste des tâches */
+#liste-taches {
+    list-style: none;
+    padding: 0;
+    margin-top: 24px;
+}
+
+/* Chaque tâche */
+#liste-taches li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding: 14px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(30, 50, 80, 0.04);
+}
+
+/* Cases à cocher */
+#liste-taches input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    accent-color: #416fd1;
+    cursor: pointer;
+}
+
+/* Texte des tâches */
+#liste-taches span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+}
+
+/* Boutons Supprimer */
+#liste-taches button {
+    flex-shrink: 0;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 9px;
+    background: #fff0f0;
+    color: #bb4545;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* Adaptation aux petits écrans */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    #liste-taches li {
+        padding: 12px 9px;
+        gap: 8px;
+    }
+}
