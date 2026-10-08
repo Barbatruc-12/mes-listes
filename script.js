@@ -158,7 +158,15 @@ function afficherListes() {
         const boutonOuvrir = document.createElement("button");
         boutonOuvrir.className = "ouvrir-liste";
         boutonOuvrir.type = "button";
-        boutonOuvrir.textContent = "🛒 " + liste.nom;
+        const total = liste.articles.length;
+
+const achetes = liste.articles.filter(function(article) {
+    return article.achete;
+}).length;
+
+boutonOuvrir.textContent =
+    "🛒 " + liste.nom +
+    " (" + achetes + "/" + total + ")";
 
         boutonOuvrir.addEventListener("click", function() {
             ouvrirListe(liste.id);
@@ -225,6 +233,9 @@ function supprimerListe(id) {
     afficherListes();
 }
 
+
+let listeOuverteId = null;
+
 function ouvrirListe(id) {
     const liste = listesCourses.find(function(element) {
         return element.id === id;
@@ -232,17 +243,22 @@ function ouvrirListe(id) {
 
     if (!liste) return;
 
+    listeOuverteId = id;
     titreListe.textContent = liste.nom;
 
     document.querySelector(".creation-liste").hidden = true;
     conteneurListes.hidden = true;
     detailListe.hidden = false;
+
+    afficherArticles();
 }
+
 
 function retournerAuxListes() {
     document.querySelector(".creation-liste").hidden = false;
     conteneurListes.hidden = false;
     detailListe.hidden = true;
+    listeOuverteId = null;
 }
 
 boutonCreerListe.addEventListener("click", creerListe);
@@ -256,3 +272,139 @@ champNomListe.addEventListener("keydown", function(event) {
 boutonRetour.addEventListener("click", retournerAuxListes);
 
 afficherListes();
+
+
+// ========================================
+// MES LISTES V0.5.2 — ARTICLES
+// ========================================
+
+const champArticle = document.getElementById("nouvel-article");
+const boutonAjouterArticle = document.getElementById("bouton-ajouter-article");
+const listeArticles = document.getElementById("liste-articles");
+const messageListeVide = document.getElementById("message-liste-vide");
+const boutonViderListe = document.getElementById("vider-liste");
+
+// Récupérer la liste actuellement ouverte
+function obtenirListeOuverte() {
+    return listesCourses.find(function(liste) {
+        return liste.id === listeOuverteId;
+    });
+}
+
+// Ajouter un article
+function ajouterArticle() {
+    const nom = champArticle.value.trim();
+    const liste = obtenirListeOuverte();
+
+    if (!nom || !liste) return;
+
+    liste.articles.push({
+        id: crypto.randomUUID(),
+        nom: nom,
+        quantite: "",
+        achete: false
+    });
+
+    sauvegarderListes();
+    afficherArticles();
+
+    champArticle.value = "";
+    champArticle.focus();
+}
+
+// Afficher les articles
+function afficherArticles() {
+    const liste = obtenirListeOuverte();
+
+    listeArticles.innerHTML = "";
+
+    if (!liste) return;
+
+    messageListeVide.hidden = liste.articles.length > 0;
+
+    liste.articles.forEach(function(article) {
+
+        const ligne = document.createElement("li");
+        ligne.className = "ligne-article";
+
+        if (article.achete) {
+            ligne.classList.add("article-achete");
+        }
+
+        // Case à cocher
+        const caseCocher = document.createElement("input");
+        caseCocher.type = "checkbox";
+        caseCocher.checked = article.achete;
+        caseCocher.setAttribute(
+            "aria-label",
+            "Article acheté : " + article.nom
+        );
+
+        caseCocher.addEventListener("change", function() {
+            article.achete = caseCocher.checked;
+            sauvegarderListes();
+            afficherArticles();
+        });
+
+        // Nom de l'article
+        const nomArticle = document.createElement("span");
+        nomArticle.className = "nom-article";
+        nomArticle.textContent = article.nom;
+
+        // Quantité modifiable
+        const quantite = document.createElement("input");
+        quantite.type = "text";
+        quantite.className = "quantite-article";
+        quantite.placeholder = "Qté";
+        quantite.value = article.quantite;
+        quantite.maxLength = 20;
+        quantite.setAttribute(
+            "aria-label",
+            "Quantité pour " + article.nom
+        );
+
+        quantite.addEventListener("input", function() {
+            article.quantite = quantite.value;
+            sauvegarderListes();
+        });
+
+        ligne.appendChild(caseCocher);
+        ligne.appendChild(nomArticle);
+        ligne.appendChild(quantite);
+
+        listeArticles.appendChild(ligne);
+    });
+
+    afficherListes();
+}
+
+// Vider la liste complète
+function viderListe() {
+    const liste = obtenirListeOuverte();
+
+    if (!liste || liste.articles.length === 0) return;
+
+    const confirmation = confirm(
+        "Supprimer tous les articles de « " +
+        liste.nom + " » ?"
+    );
+
+    if (!confirmation) return;
+
+    liste.articles = [];
+
+    sauvegarderListes();
+    afficherArticles();
+}
+
+// Événements
+boutonAjouterArticle.addEventListener("click", ajouterArticle);
+
+champArticle.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        ajouterArticle();
+    }
+});
+
+boutonViderListe.addEventListener("click", viderListe);
+
