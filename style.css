@@ -156,17 +156,6 @@ section > p {
     font-size: 16px;
 }
 
-#liste-taches li button {
-    flex-shrink: 0;
-    padding: 10px;
-    border: none;
-    border-radius: 9px;
-    background: #fff0f0;
-    color: #bb4545;
-    font-size: 13px;
-    cursor: pointer;
-}
-
 /* PETITS ÉCRANS */
 
 @media (max-width: 400px) {
@@ -182,4 +171,50 @@ section > p {
         gap: 8px;
         padding: 12px 9px;
     }
+}
+
+
+/* MES LISTES — Améliorations V0.4 */
+
+/* Tâches terminées */
+
+#liste-taches li.tache-terminee {
+    background: #f3f6fa;
+    border: 1px solid #dce4ed;
+    box-shadow: none;
+}
+
+#liste-taches li.tache-terminee span {
+    color: #97a4b4;
+    text-decoration: line-through;
+}
+
+/* Bouton corbeille */
+
+.bouton-supprimer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: #fff0f0;
+    color: #bb4545;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Retour visuel au toucher */
+
+.bouton-supprimer:active {
+    background: #ffdada;
+    transform: scale(0.95);
+}
+
+#bouton-ajouter:active {
+    background: #3159ad;
+    transform: scale(0.97);
 }
