@@ -312,3 +312,115 @@ section > p {
     margin-bottom: 12px;
 }
 
+
+/* ========================================
+   MES LISTES — V0.5.2
+   Gestion des articles
+======================================== */
+
+.entete-liste {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.entete-liste h2 {
+    margin: 0;
+}
+
+#vider-liste {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 10px;
+    background: #fff0f0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ajout-article {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#nouvel-article {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: white;
+    font-size: 16px;
+}
+
+#bouton-ajouter-article {
+    width: 55px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 12px;
+    background: #416fd1;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#liste-articles {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ligne-article {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: white;
+}
+
+.ligne-article input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    accent-color: #416fd1;
+}
+
+.nom-article {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: 16px;
+}
+
+.quantite-article {
+    width: 75px;
+    min-width: 0;
+    padding: 9px 5px;
+    border: 1px solid #dce4ed;
+    border-radius: 8px;
+    background: #f5f7fa;
+    font-size: 14px;
+    text-align: center;
+}
+
+.article-achete {
+    background: #f3f6fa;
+}
+
+.article-achete .nom-article {
+    color: #97a4b4;
+    text-decoration: line-through;
+}
+
+#message-liste-vide {
+    color: #718096;
+    text-align: center;
+    padding: 20px 0;
+}
+
