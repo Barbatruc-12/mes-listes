@@ -1,55 +1,110 @@
 
-/* MES LISTES — Version 0.2 */
+/* MES LISTES — Version 0.3 */
 
-/* Réglages généraux */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 30px 16px;
     min-height: 100vh;
     background: #edf3f8;
     color: #20304b;
     font-family: Arial, sans-serif;
 }
 
-/* Carte principale */
-body {
+.application {
     max-width: 600px;
     margin: 0 auto;
+    padding: 28px 18px;
 }
 
-/* Titres */
+/* EN-TÊTE */
+
+.entete {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: #416fd1;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}
+
 h1 {
-    margin: 10px 0;
-    font-size: 34px;
-    color: #20304b;
+    margin: 0;
+    font-size: 29px;
 }
 
-h1::before {
-    content: "✓";
-    display: inline-block;
-    margin-right: 12px;
-    color: #416fd1;
+.entete p {
+    margin: 6px 0 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* NAVIGATION */
+
+.navigation {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.onglet {
+    flex: 1;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 13px;
+    background: white;
+    color: #718096;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.onglet.actif {
+    background: #416fd1;
+    color: white;
+}
+
+/* SECTIONS */
+
+[hidden] {
+    display: none !important;
 }
 
 h2 {
-    margin-top: 35px;
-    font-size: 23px;
+    margin: 0 0 18px;
+    font-size: 22px;
 }
 
-/* Texte d'introduction */
-p {
+section > p {
     color: #718096;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
-/* Champ de saisie */
+/* AJOUT DE TÂCHE */
+
+.ajout-tache {
+    display: flex;
+    gap: 10px;
+}
+
 #nouvelle-tache {
-    width: 100%;
-    padding: 16px;
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
     border: 1px solid #dce4ed;
     border-radius: 12px;
     background: white;
@@ -57,28 +112,25 @@ p {
     outline-color: #416fd1;
 }
 
-/* Bouton Ajouter */
 #bouton-ajouter {
-    width: 100%;
-    margin-top: 10px;
-    padding: 15px;
+    width: 55px;
+    flex-shrink: 0;
     border: none;
     border-radius: 12px;
     background: #416fd1;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 30px;
     cursor: pointer;
 }
 
-/* Liste des tâches */
+/* LISTE DES TÂCHES */
+
 #liste-taches {
     list-style: none;
     padding: 0;
-    margin-top: 24px;
+    margin-top: 22px;
 }
 
-/* Chaque tâche */
 #liste-taches li {
     display: flex;
     align-items: center;
@@ -90,16 +142,13 @@ p {
     box-shadow: 0 2px 8px rgba(30, 50, 80, 0.04);
 }
 
-/* Cases à cocher */
 #liste-taches input[type="checkbox"] {
     width: 22px;
     height: 22px;
     flex-shrink: 0;
     accent-color: #416fd1;
-    cursor: pointer;
 }
 
-/* Texte des tâches */
 #liste-taches span {
     flex: 1;
     min-width: 0;
@@ -107,10 +156,9 @@ p {
     font-size: 16px;
 }
 
-/* Boutons Supprimer */
-#liste-taches button {
+#liste-taches li button {
     flex-shrink: 0;
-    padding: 9px 12px;
+    padding: 10px;
     border: none;
     border-radius: 9px;
     background: #fff0f0;
@@ -119,14 +167,19 @@ p {
     cursor: pointer;
 }
 
-/* Adaptation aux petits écrans */
+/* PETITS ÉCRANS */
+
 @media (max-width: 400px) {
+    .application {
+        padding: 22px 14px;
+    }
+
     h1 {
-        font-size: 30px;
+        font-size: 26px;
     }
 
     #liste-taches li {
-        padding: 12px 9px;
         gap: 8px;
+        padding: 12px 9px;
     }
 }
