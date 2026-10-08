@@ -17,6 +17,9 @@
         taches.forEach(function(tache, index) {
 
             const ligne = document.createElement("li");
+            if (tache.terminee) {
+    ligne.classList.add("tache-terminee");
+}
 
             // Case à cocher
             const caseCocher = document.createElement("input");
@@ -33,7 +36,10 @@
 
             // Bouton supprimer
             const boutonSupprimer = document.createElement("button");
-            boutonSupprimer.textContent = "Supprimer";
+            boutonSupprimer.textContent = "🗑";
+boutonSupprimer.className = "bouton-supprimer";
+boutonSupprimer.setAttribute("aria-label", "Supprimer la tâche");
+boutonSupprimer.title = "Supprimer la tâche";
 
             // Quand on coche ou décoche
             caseCocher.addEventListener("change", function() {
@@ -107,4 +113,12 @@ ongletTaches.addEventListener("click", function() {
 
 ongletCourses.addEventListener("click", function() {
     afficherSection("courses");
+});
+
+// AJOUTER UNE TÂCHE AVEC ENTRÉE
+
+champTache.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        ajouterTache();
+    }
 });
