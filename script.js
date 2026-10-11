@@ -441,6 +441,11 @@ const champBesoin = document.getElementById("nouveau-besoin");
 const boutonAjouterBesoin = document.getElementById("bouton-ajouter-besoin");
 const listeBesoins = document.getElementById("liste-besoins");
 const messageBesoinsVides = document.getElementById("message-besoins-vides");
+const fenetreDestination = document.getElementById("fenetre-destination");
+const boutonFermerDestination = document.getElementById("fermer-destination");
+const texteDestination = document.getElementById("texte-destination");
+const choixDestinations = document.getElementById("choix-destinations");
+
 
 let besoins = JSON.parse(
     localStorage.getItem("mesBesoins")
@@ -527,12 +532,68 @@ function afficherBesoins() {
 }
 
 // Choisir une liste de destination
+
+// Afficher la fenêtre de sélection
 function choisirListePourBesoin(besoin) {
 
     if (listesCourses.length === 0) {
         alert("Crée d'abord une liste dans Courses.");
         return;
     }
+
+    texteDestination.textContent =
+        "Où ajouter « " + besoin.nom + " » ?";
+
+    choixDestinations.innerHTML = "";
+
+    listesCourses.forEach(function(liste) {
+
+        const bouton = document.createElement("button");
+        bouton.type = "button";
+        bouton.className = "bouton-destination";
+        bouton.textContent = "🛒 " + liste.nom;
+
+        bouton.addEventListener("click", function() {
+            envoyerBesoinVersListe(besoin, liste);
+        });
+
+        choixDestinations.appendChild(bouton);
+    });
+
+    fenetreDestination.hidden = false;
+    boutonFermerDestination.focus();
+}
+
+// Transférer le besoin vers la liste choisie
+function envoyerBesoinVersListe(besoin, liste) {
+
+    const existe = liste.articles.some(function(article) {
+        return article.besoinId === besoin.id;
+    });
+
+    if (existe) {
+        alert("Ce besoin figure déjà dans cette liste.");
+        return;
+    }
+
+    liste.articles.push({
+        id: crypto.randomUUID(),
+        besoinId: besoin.id,
+        nom: besoin.nom,
+        quantite: "",
+        achete: false
+    });
+
+    sauvegarderListes();
+    afficherBesoins();
+    fermerFenetreDestination();
+}
+
+// Fermer la fenêtre
+function fermerFenetreDestination() {
+    fenetreDestination.hidden = true;
+}
+
 
     const choix = listesCourses.map(function(liste, index) {
         return (index + 1) + " - " + liste.nom;
@@ -587,3 +648,23 @@ champBesoin.addEventListener("keydown", function(event) {
 });
 
 afficherBesoins();
+
+
+boutonFermerDestination.addEventListener(
+    "click",
+    fermerFenetreDestination
+);
+
+// Fermer en touchant l'arrière-plan
+fenetreDestination.addEventListener("click", function(event) {
+    if (event.target === fenetreDestination) {
+        fermerFenetreDestination();
+    }
+});
+
+// Fermer avec la touche Échap
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && !fenetreDestination.hidden) {
+        fermerFenetreDestination();
+    }
+});
