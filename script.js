@@ -85,35 +85,52 @@ boutonSupprimer.title = "Supprimer la tâche";
 
     afficherTaches();
 
-// NAVIGATION ENTRE LES SECTIONS
 
-const ongletTaches = document.getElementById("onglet-taches");
-const ongletCourses = document.getElementById("onglet-courses");
+// Navigation entre les trois sections
 
-const sectionTaches = document.getElementById("section-taches");
-const sectionCourses = document.getElementById("section-courses");
+const ongletBesoins = document.getElementById("onglet-besoins");
+const sectionBesoins = document.getElementById("section-besoins");
 
 function afficherSection(section) {
 
-    const afficherTaches = section === "taches";
+    const sections = {
+        taches: sectionTaches,
+        besoins: sectionBesoins,
+        courses: sectionCourses
+    };
 
-    sectionTaches.hidden = !afficherTaches;
-    sectionCourses.hidden = afficherTaches;
+    const onglets = {
+        taches: ongletTaches,
+        besoins: ongletBesoins,
+        courses: ongletCourses
+    };
 
-    ongletTaches.classList.toggle("actif", afficherTaches);
-    ongletCourses.classList.toggle("actif", !afficherTaches);
+    Object.keys(sections).forEach(function(nom) {
+        const actif = nom === section;
 
-    ongletTaches.setAttribute("aria-pressed", afficherTaches);
-    ongletCourses.setAttribute("aria-pressed", !afficherTaches);
+        sections[nom].hidden = !actif;
+        onglets[nom].classList.toggle("actif", actif);
+        onglets[nom].setAttribute("aria-pressed", actif);
+    });
+
+    if (section === "besoins") {
+        afficherBesoins();
+    }
 }
 
 ongletTaches.addEventListener("click", function() {
     afficherSection("taches");
 });
 
+ongletBesoins.addEventListener("click", function() {
+    afficherSection("besoins");
+});
+
 ongletCourses.addEventListener("click", function() {
+    retournerAuxListes();
     afficherSection("courses");
 });
+
 
 // AJOUTER UNE TÂCHE AVEC ENTRÉE
 
@@ -408,3 +425,158 @@ champArticle.addEventListener("keydown", function(event) {
 
 boutonViderListe.addEventListener("click", viderListe);
 
+
+// ========================================
+// MES LISTES V0.6 — BESOINS
+// ========================================
+
+const champBesoin = document.getElementById("nouveau-besoin");
+const boutonAjouterBesoin = document.getElementById("bouton-ajouter-besoin");
+const listeBesoins = document.getElementById("liste-besoins");
+const messageBesoinsVides = document.getElementById("message-besoins-vides");
+
+let besoins = JSON.parse(
+    localStorage.getItem("mesBesoins")
+) || [];
+
+function sauvegarderBesoins() {
+    localStorage.setItem(
+        "mesBesoins",
+        JSON.stringify(besoins)
+    );
+}
+
+function ajouterBesoin() {
+    const nom = champBesoin.value.trim();
+
+    if (!nom) return;
+
+    besoins.push({
+        id: crypto.randomUUID(),
+        nom: nom
+    });
+
+    sauvegarderBesoins();
+    afficherBesoins();
+
+    champBesoin.value = "";
+    champBesoin.focus();
+}
+
+// Vérifie si le besoin figure dans une liste
+function besoinEstPrevu(id) {
+    return listesCourses.some(function(liste) {
+        return liste.articles.some(function(article) {
+            return article.besoinId === id;
+        });
+    });
+}
+
+function afficherBesoins() {
+    listeBesoins.innerHTML = "";
+
+    messageBesoinsVides.hidden = besoins.length > 0;
+
+    besoins.forEach(function(besoin) {
+
+        const ligne = document.createElement("li");
+        ligne.className = "ligne-besoin";
+
+        const nom = document.createElement("span");
+        nom.className = "nom-besoin";
+        nom.textContent = besoin.nom;
+
+        const statut = document.createElement("span");
+        statut.className = "statut-besoin";
+
+        const prevu = besoinEstPrevu(besoin.id);
+
+        statut.textContent = prevu ? "Prévu" : "À prévoir";
+
+        if (prevu) {
+            statut.classList.add("statut-prevu");
+        }
+
+        const bouton = document.createElement("button");
+        bouton.type = "button";
+        bouton.className = "envoyer-besoin";
+        bouton.textContent = "→";
+        bouton.title = "Ajouter à une liste de courses";
+        bouton.setAttribute(
+            "aria-label",
+            "Envoyer " + besoin.nom + " aux courses"
+        );
+
+        bouton.addEventListener("click", function() {
+            choisirListePourBesoin(besoin);
+        });
+
+        ligne.appendChild(nom);
+        ligne.appendChild(statut);
+        ligne.appendChild(bouton);
+
+        listeBesoins.appendChild(ligne);
+    });
+}
+
+// Choisir une liste de destination
+function choisirListePourBesoin(besoin) {
+
+    if (listesCourses.length === 0) {
+        alert("Crée d'abord une liste dans Courses.");
+        return;
+    }
+
+    const choix = listesCourses.map(function(liste, index) {
+        return (index + 1) + " - " + liste.nom;
+    }).join("\n");
+
+    const reponse = prompt(
+        "Envoyer « " + besoin.nom + " » vers :\n\n" + choix +
+        "\n\nIndique le numéro de la liste."
+    );
+
+    if (reponse === null) return;
+
+    const numero = Number(reponse.trim());
+
+    if (!Number.isInteger(numero) ||
+        numero < 1 ||
+        numero > listesCourses.length) {
+        alert("Numéro de liste invalide.");
+        return;
+    }
+
+    const liste = listesCourses[numero - 1];
+
+    // Éviter les doublons dans une même liste
+    const existe = liste.articles.some(function(article) {
+        return article.besoinId === besoin.id;
+    });
+
+    if (existe) {
+        alert("Ce besoin figure déjà dans cette liste.");
+        return;
+    }
+
+    liste.articles.push({
+        id: crypto.randomUUID(),
+        besoinId: besoin.id,
+        nom: besoin.nom,
+        quantite: "",
+        achete: false
+    });
+
+    sauvegarderListes();
+    afficherBesoins();
+}
+
+boutonAjouterBesoin.addEventListener("click", ajouterBesoin);
+
+champBesoin.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        ajouterBesoin();
+    }
+});
+
+afficherBesoins();
