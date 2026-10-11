@@ -86,10 +86,17 @@ boutonSupprimer.title = "Supprimer la tâche";
     afficherTaches();
 
 
-// Navigation entre les trois sections
 
+ // Navigation entre les trois sections
+
+const ongletTaches = document.getElementById("onglet-taches");
 const ongletBesoins = document.getElementById("onglet-besoins");
+const ongletCourses = document.getElementById("onglet-courses");
+
+const sectionTaches = document.getElementById("section-taches");
 const sectionBesoins = document.getElementById("section-besoins");
+const sectionCourses = document.getElementById("section-courses");
+
 
 function afficherSection(section) {
 
