@@ -27,6 +27,13 @@
                 ☑ Tâches
             </button>
 
+<button id="onglet-besoins"
+        class="onglet"
+        type="button"
+        aria-pressed="false">
+    📋 Besoins
+</button>
+            
             <button id="onglet-courses"
                     class="onglet"
                     type="button"
@@ -52,6 +59,32 @@
 
             <ul id="liste-taches"></ul>
         </section>
+
+        
+<section id="section-besoins" hidden>
+
+    <h2>Mes besoins</h2>
+
+    <div class="ajout-besoin">
+        <input id="nouveau-besoin"
+               type="text"
+               placeholder="De quoi ai-je besoin ?"
+               maxlength="100">
+
+        <button id="bouton-ajouter-besoin"
+                type="button"
+                aria-label="Ajouter un besoin">
+            +
+        </button>
+    </div>
+
+    <p id="message-besoins-vides" hidden>
+        Aucun besoin enregistré.
+    </p>
+
+    <ul id="liste-besoins"></ul>
+
+</section>
 
        
 <section id="section-courses" hidden>
