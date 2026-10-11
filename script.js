@@ -594,51 +594,6 @@ function fermerFenetreDestination() {
     fenetreDestination.hidden = true;
 }
 
-
-    const choix = listesCourses.map(function(liste, index) {
-        return (index + 1) + " - " + liste.nom;
-    }).join("\n");
-
-    const reponse = prompt(
-        "Envoyer « " + besoin.nom + " » vers :\n\n" + choix +
-        "\n\nIndique le numéro de la liste."
-    );
-
-    if (reponse === null) return;
-
-    const numero = Number(reponse.trim());
-
-    if (!Number.isInteger(numero) ||
-        numero < 1 ||
-        numero > listesCourses.length) {
-        alert("Numéro de liste invalide.");
-        return;
-    }
-
-    const liste = listesCourses[numero - 1];
-
-    // Éviter les doublons dans une même liste
-    const existe = liste.articles.some(function(article) {
-        return article.besoinId === besoin.id;
-    });
-
-    if (existe) {
-        alert("Ce besoin figure déjà dans cette liste.");
-        return;
-    }
-
-    liste.articles.push({
-        id: crypto.randomUUID(),
-        besoinId: besoin.id,
-        nom: besoin.nom,
-        quantite: "",
-        achete: false
-    });
-
-    sauvegarderListes();
-    afficherBesoins();
-}
-
 boutonAjouterBesoin.addEventListener("click", ajouterBesoin);
 
 champBesoin.addEventListener("keydown", function(event) {
