@@ -520,3 +520,84 @@ section > p {
     text-align: center;
     padding: 20px 0;
 }
+
+
+/* ========================================
+   MES LISTES — V0.7
+   Sélecteur tactile de destination
+======================================== */
+
+.fond-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(20, 35, 60, 0.55);
+}
+
+.modal-destination {
+    width: 100%;
+    max-width: 420px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 22px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.entete-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.entete-modal h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+#fermer-destination {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 10px;
+    background: #f0f2f5;
+    color: #20304b;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#texte-destination {
+    margin: 16px 0;
+    color: #718096;
+}
+
+#choix-destinations {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bouton-destination {
+    width: 100%;
+    min-height: 54px;
+    padding: 15px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: #edf3f8;
+    color: #20304b;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.bouton-destination:active {
+    background: #dce8ff;
+    transform: scale(0.98);
+}
