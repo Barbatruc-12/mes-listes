@@ -424,3 +424,99 @@ section > p {
     padding: 20px 0;
 }
 
+
+/* ========================================
+   MES LISTES — V0.6
+   Gestion des besoins
+======================================== */
+
+.navigation {
+    gap: 7px;
+}
+
+.onglet {
+    min-width: 0;
+    padding: 14px 4px;
+    font-size: 14px;
+}
+
+.ajout-besoin {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+#nouveau-besoin {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: white;
+    font-size: 16px;
+}
+
+#bouton-ajouter-besoin {
+    width: 55px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 12px;
+    background: #416fd1;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#liste-besoins {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ligne-besoin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: white;
+}
+
+.nom-besoin {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.statut-besoin {
+    flex-shrink: 0;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: #f0f2f5;
+    color: #718096;
+    font-size: 12px;
+}
+
+.statut-prevu {
+    background: #e6efff;
+    color: #3159ad;
+}
+
+.envoyer-besoin {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 10px;
+    background: #416fd1;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+#message-besoins-vides {
+    color: #718096;
+    text-align: center;
+    padding: 20px 0;
+}
