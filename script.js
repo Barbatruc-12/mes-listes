@@ -567,12 +567,42 @@ boutonModifier.addEventListener("click", function() {
     afficherListes();
 });
 
+
+const boutonSupprimerBesoin = document.createElement("button");
+boutonSupprimerBesoin.type = "button";
+boutonSupprimerBesoin.className = "supprimer-besoin";
+boutonSupprimerBesoin.textContent = "🗑";
+boutonSupprimerBesoin.title = "Supprimer ce besoin";
+boutonSupprimerBesoin.setAttribute(
+    "aria-label",
+    "Supprimer " + besoin.nom
+);
+
+boutonSupprimerBesoin.addEventListener("click", function() {
+
+    const confirmation = confirm(
+        "Supprimer « " + besoin.nom + " » du catalogue ?\n\n" +
+        "Les articles déjà présents dans les listes de courses seront conservés."
+    );
+
+    if (!confirmation) return;
+
+    besoins = besoins.filter(function(element) {
+        return element.id !== besoin.id;
+    });
+
+    sauvegarderBesoins();
+    afficherBesoins();
+});
+
 ligne.appendChild(nom);
 ligne.appendChild(statut);
 ligne.appendChild(boutonModifier);
 ligne.appendChild(bouton);
+ligne.appendChild(boutonSupprimerBesoin);
 
 listeBesoins.appendChild(ligne);
+
 
     });
 }
