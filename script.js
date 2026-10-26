@@ -523,11 +523,57 @@ function afficherBesoins() {
             choisirListePourBesoin(besoin);
         });
 
-        ligne.appendChild(nom);
-        ligne.appendChild(statut);
-        ligne.appendChild(bouton);
 
-        listeBesoins.appendChild(ligne);
+const boutonModifier = document.createElement("button");
+boutonModifier.type = "button";
+boutonModifier.className = "modifier-besoin";
+boutonModifier.textContent = "✏️";
+boutonModifier.title = "Renommer ce besoin";
+boutonModifier.setAttribute(
+    "aria-label",
+    "Renommer " + besoin.nom
+);
+
+boutonModifier.addEventListener("click", function() {
+
+    const nouveauNom = prompt(
+        "Nouveau nom du besoin :",
+        besoin.nom
+    );
+
+    if (nouveauNom === null) return;
+
+    const nomCorrige = nouveauNom.trim();
+
+    if (nomCorrige === "") {
+        alert("Le nom ne peut pas être vide.");
+        return;
+    }
+
+    besoin.nom = nomCorrige;
+    sauvegarderBesoins();
+
+    // Mettre à jour le nom dans les listes de courses
+    listesCourses.forEach(function(liste) {
+        liste.articles.forEach(function(article) {
+            if (article.besoinId === besoin.id) {
+                article.nom = nomCorrige;
+            }
+        });
+    });
+
+    sauvegarderListes();
+    afficherBesoins();
+    afficherListes();
+});
+
+ligne.appendChild(nom);
+ligne.appendChild(statut);
+ligne.appendChild(boutonModifier);
+ligne.appendChild(bouton);
+
+listeBesoins.appendChild(ligne);
+
     });
 }
 
