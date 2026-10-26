@@ -392,11 +392,45 @@ function afficherArticles() {
             sauvegarderListes();
         });
 
-        ligne.appendChild(caseCocher);
-        ligne.appendChild(nomArticle);
-        ligne.appendChild(quantite);
+       
+const boutonSupprimerArticle = document.createElement("button");
+boutonSupprimerArticle.type = "button";
+boutonSupprimerArticle.className = "supprimer-article";
+boutonSupprimerArticle.textContent = "🗑";
+boutonSupprimerArticle.title = "Retirer cet article";
+boutonSupprimerArticle.setAttribute(
+    "aria-label",
+    "Retirer " + article.nom
+);
 
-        listeArticles.appendChild(ligne);
+boutonSupprimerArticle.addEventListener("click", function() {
+
+    // Confirmation uniquement si des informations risquent d'être perdues
+    if (article.quantite.trim() !== "" || article.achete) {
+
+        const confirmation = confirm(
+            "Retirer « " + article.nom + " » de cette liste ?\n\n" +
+            "Sa quantité ou son état d'achat sera perdu."
+        );
+
+        if (!confirmation) return;
+    }
+
+    liste.articles = liste.articles.filter(function(element) {
+        return element.id !== article.id;
+    });
+
+    sauvegarderListes();
+    afficherArticles();
+});
+
+ligne.appendChild(caseCocher);
+ligne.appendChild(nomArticle);
+ligne.appendChild(quantite);
+ligne.appendChild(boutonSupprimerArticle);
+
+listeArticles.appendChild(ligne);
+
     });
 
     afficherListes();
