@@ -471,6 +471,118 @@ boutonViderListe.addEventListener("click", viderListe);
 // MES LISTES V0.6 — BESOINS
 // ========================================
 
+/* ========================================
+   MES LISTES — V0.9
+   Sélection multiple des besoins
+======================================== */
+
+const boutonOuvrirSelection = document.getElementById("ouvrir-selection-besoins");
+const panneauSelection = document.getElementById("panneau-selection-besoins");
+const choixBesoinsCourses = document.getElementById("choix-besoins-courses");
+
+// Ouvrir ou fermer le panneau
+boutonOuvrirSelection.addEventListener("click", function() {
+
+    const ouverture = panneauSelection.hidden;
+
+    panneauSelection.hidden = !ouverture;
+
+    boutonOuvrirSelection.setAttribute(
+        "aria-expanded",
+        String(ouverture)
+    );
+
+    if (ouverture) {
+        afficherSelectionBesoins();
+    }
+});
+
+// Afficher les besoins disponibles
+function afficherSelectionBesoins() {
+
+    const liste = obtenirListeOuverte();
+
+    if (!liste) return;
+
+    choixBesoinsCourses.innerHTML = "";
+
+    const besoinsTries = [...besoins].sort(function(a, b) {
+        return a.nom.localeCompare(b.nom, "fr");
+    });
+
+    besoinsTries.forEach(function(besoin) {
+
+        const ligne = document.createElement("label");
+        ligne.className = "choix-besoin";
+
+        const caseCocher = document.createElement("input");
+        caseCocher.type = "checkbox";
+
+        const dejaPresent = liste.articles.some(function(article) {
+            return article.besoinId === besoin.id;
+        });
+
+        caseCocher.checked = dejaPresent;
+
+        const nom = document.createElement("span");
+        nom.textContent = besoin.nom;
+
+        caseCocher.addEventListener("change", function() {
+
+            if (caseCocher.checked) {
+
+                // Ajouter immédiatement le besoin aux courses
+                liste.articles.push({
+                    id: crypto.randomUUID(),
+                    besoinId: besoin.id,
+                    nom: besoin.nom,
+                    quantite: "",
+                    achete: false
+                });
+
+            } else {
+
+                // Retirer le besoin de cette liste
+                const article = liste.articles.find(function(element) {
+                    return element.besoinId === besoin.id;
+                });
+
+                if (article) {
+
+                    const informationsAPerdre =
+                        String(article.quantite || "").trim() !== "" ||
+                        article.achete;
+
+                    if (informationsAPerdre) {
+
+                        const confirmation = confirm(
+                            "Retirer « " + article.nom + " » des courses ?\n\n" +
+                            "Sa quantité ou son état d'achat sera perdu."
+                        );
+
+                        if (!confirmation) {
+                            caseCocher.checked = true;
+                            return;
+                        }
+                    }
+
+                    liste.articles = liste.articles.filter(function(element) {
+                        return element.id !== article.id;
+                    });
+                }
+            }
+
+            sauvegarderListes();
+            afficherArticles();
+            afficherBesoins();
+        });
+
+        ligne.appendChild(caseCocher);
+        ligne.appendChild(nom);
+        choixBesoinsCourses.appendChild(ligne);
+    });
+}
+
 const champBesoin = document.getElementById("nouveau-besoin");
 const boutonAjouterBesoin = document.getElementById("bouton-ajouter-besoin");
 const listeBesoins = document.getElementById("liste-besoins");
