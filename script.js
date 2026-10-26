@@ -584,6 +584,77 @@ function afficherSelectionBesoins() {
         ligne.appendChild(nom);
         choixBesoinsCourses.appendChild(ligne);
     });
+    
+/* V0.9 — Création d'un besoin depuis Courses */
+
+const champBesoinCourses = document.getElementById("nouveau-besoin-courses");
+const boutonAjouterBesoinCourses = document.getElementById("ajouter-besoin-courses");
+
+function ajouterBesoinDepuisCourses() {
+
+    const nom = champBesoinCourses.value.trim();
+    const liste = obtenirListeOuverte();
+
+    if (!nom || !liste) return;
+
+    // Chercher si ce besoin existe déjà dans le catalogue
+    let besoin = besoins.find(function(element) {
+        return element.nom.trim().toLocaleLowerCase("fr") ===
+               nom.toLocaleLowerCase("fr");
+    });
+
+    // Créer le besoin uniquement s'il n'existe pas
+    if (!besoin) {
+        besoin = {
+            id: crypto.randomUUID(),
+            nom: nom
+        };
+
+        besoins.push(besoin);
+        sauvegarderBesoins();
+    }
+
+    // Vérifier s'il figure déjà dans la liste ouverte
+    const dejaPresent = liste.articles.some(function(article) {
+        return article.besoinId === besoin.id;
+    });
+
+    if (dejaPresent) {
+        alert("« " + besoin.nom + " » figure déjà dans cette liste.");
+        champBesoinCourses.focus();
+        return;
+    }
+
+    // Ajouter la denrée aux courses
+    liste.articles.push({
+        id: crypto.randomUUID(),
+        besoinId: besoin.id,
+        nom: besoin.nom,
+        quantite: "",
+        achete: false
+    });
+
+    sauvegarderListes();
+
+    // Actualiser les affichages
+    afficherArticles();
+    afficherBesoins();
+
+    champBesoinCourses.value = "";
+    champBesoinCourses.focus();
+}
+
+// Clic sur le bouton Ajouter
+boutonAjouterBesoinCourses.addEventListener("click", ajouterBesoinDepuisCourses);
+
+// Validation avec la touche Entrée
+champBesoinCourses.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        ajouterBesoinDepuisCourses();
+    }
+});
+
 }
 
 const champBesoin = document.getElementById("nouveau-besoin");
