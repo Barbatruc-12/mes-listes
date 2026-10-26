@@ -601,3 +601,25 @@ section > p {
     background: #dce8ff;
     transform: scale(0.98);
 }
+
+/* ========================================
+   MES LISTES — V0.8
+   Modification des besoins
+======================================== */
+
+.modifier-besoin {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: #e6efff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modifier-besoin:active {
+    background: #d2e2ff;
+    transform: scale(0.95);
+}
