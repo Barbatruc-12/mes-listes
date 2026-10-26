@@ -584,6 +584,7 @@ function afficherSelectionBesoins() {
         ligne.appendChild(nom);
         choixBesoinsCourses.appendChild(ligne);
     });
+}
     
 /* V0.9 — Création d'un besoin depuis Courses */
 
