@@ -703,3 +703,31 @@ section > p {
     background: #ffdada;
     transform: scale(0.95);
 }
+
+/* V0.9 — Cases de sélection des besoins */
+
+.choix-besoin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.choix-besoin:active {
+    background: #edf3f8;
+}
+
+.choix-besoin input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    accent-color: #416fd1;
+}
+
+.choix-besoin span {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
