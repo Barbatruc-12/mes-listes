@@ -642,3 +642,45 @@ section > p {
     background: #ffdada;
     transform: scale(0.95);
 }
+
+/* ========================================
+   MES LISTES — V0.9
+   Sélection des besoins pour les courses
+======================================== */
+
+.selection-besoins-courses {
+    margin-bottom: 20px;
+}
+
+#ouvrir-selection-besoins {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #416fd1;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#panneau-selection-besoins {
+    margin-top: 10px;
+    padding: 15px;
+    border: 1px solid #dce4ed;
+    border-radius: 12px;
+    background: white;
+}
+
+#panneau-selection-besoins p {
+    margin-top: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+#choix-besoins-courses {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
