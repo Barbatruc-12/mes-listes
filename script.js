@@ -433,7 +433,10 @@ listeArticles.appendChild(ligne);
 
     });
 
-    afficherListes();
+       afficherListes();
+
+    // Synchroniser les cases du panneau avec les articles
+    afficherSelectionBesoins();
 }
 
 // Vider la liste complète
