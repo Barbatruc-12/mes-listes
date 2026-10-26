@@ -731,3 +731,8 @@ section > p {
     flex: 1;
     overflow-wrap: anywhere;
 }
+/* V0.9 — Ajout des courses uniquement depuis les besoins */
+
+#detail-liste .ajout-article {
+    display: none;
+}
