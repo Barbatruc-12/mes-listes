@@ -656,8 +656,6 @@ champBesoinCourses.addEventListener("keydown", function(event) {
     }
 });
 
-}
-
 const champBesoin = document.getElementById("nouveau-besoin");
 const boutonAjouterBesoin = document.getElementById("bouton-ajouter-besoin");
 const listeBesoins = document.getElementById("liste-besoins");
